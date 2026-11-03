@@ -1,72 +1,74 @@
-import React from 'react';
-import './Login.css'; // سنستخدم نفس تصميم صفحة الدخول لتوحيد الشكل
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import './Login.css';
 
-function Signup({ onSwitchToLogin }) {
+export default function Signup() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleSignupSubmit = (e) => {
+    e.preventDefault();
+    localStorage.setItem('isLoggedIn', 'true');
+    toast.success('تم إنشاء الحساب وتسجيل الدخول بنجاح! 🎉');
+    navigate('/');
+  };
+
   return (
-    <div className="login-wrapper">
-      {/* القسم العلوي */}
-      <div className="login-hero">
-        <h1>Make your shopping wishlist, we'll do the rest</h1>
-      </div>
-
-      {/* محتوى صفحة إنشاء الحساب */}
-      <div className="login-container">
-        <div className="login-card">
-          
-          {/* شعار المتجر */}
-          <div className="store-brand">
-            <div className="brand-icon">🛒</div>
-            <h2>Shop Now</h2>
+    <div className="login-container">
+      <div className="login-card">
+        <h2>MegaMart</h2>
+        <p className="login-subtitle">Create a new MegaMart account</p>
+        
+        <form onSubmit={handleSignupSubmit} autoComplete="off">
+          <div className="form-group">
+            <label>Full Name</label>
+            <input 
+              type="text" 
+              value={name} 
+              onChange={(e) => setName(e.target.value)} 
+              placeholder="Full Name" 
+              autoComplete="off"
+              name="rand_signup_name_99"
+              required 
+            />
           </div>
 
-          <div className="login-header-text">
-            <h3>Create Account</h3>
-            <p>Sign up to start your shopping journey</p>
-          </div>
-          
-          <form onSubmit={(e) => e.preventDefault()} autoComplete="off">
-            <div className="input-group">
-              <label>Full Name</label>
-              <input 
-                type="text" 
-                placeholder="Enter your full name" 
-                autoComplete="off"
-                required 
-              />
-            </div>
-
-            <div className="input-group">
-              <label>Email</label>
-              <input 
-                type="email" 
-                placeholder="Enter your email" 
-                autoComplete="off"
-                required 
-              />
-            </div>
-
-            <div className="input-group">
-              <label>Password</label>
-              <input 
-                type="password" 
-                placeholder="Enter your password" 
-                autoComplete="new-password"
-                required 
-              />
-            </div>
-
-            <button type="submit" className="login-submit-btn">Sign Up</button>
-          </form>
-
-          {/* العودة لصفحة تسجيل الدخول */}
-          <div className="signup-prompt">
-            Already have an account? <span onClick={onSwitchToLogin} style={{ color: '#1d4ed8', cursor: 'pointer', fontWeight: 600 }}>Login</span>
+          <div className="form-group">
+            <label>Email</label>
+            <input 
+              type="email" 
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
+              placeholder="Email" 
+              autoComplete="off"
+              name="rand_signup_email_99"
+              required 
+            />
           </div>
 
-        </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input 
+              type="password" 
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)} 
+              placeholder="Password" 
+              autoComplete="new-password"
+              name="rand_signup_pass_99"
+              required 
+            />
+          </div>
+
+          <button type="submit" className="login-btn">Sign Up</button>
+        </form>
+
+        <p className="signup-text">
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
       </div>
     </div>
   );
 }
-
-export default Signup;

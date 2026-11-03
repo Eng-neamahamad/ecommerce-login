@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import './Login.css';
 
 export default function Login() {
@@ -10,6 +11,7 @@ export default function Login() {
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     localStorage.setItem('isLoggedIn', 'true');
+    toast.success('تم تسجيل الدخول بنجاح! 👋');
     navigate('/');
   };
 
@@ -19,7 +21,7 @@ export default function Login() {
         <h2>MegaMart</h2>
         <p className="login-subtitle">Login to access your MegaMart account</p>
         
-        <form onSubmit={handleLoginSubmit}>
+        <form onSubmit={handleLoginSubmit} autoComplete="off">
           <div className="form-group">
             <label>Email</label>
             <input 
@@ -27,6 +29,8 @@ export default function Login() {
               value={email} 
               onChange={(e) => setEmail(e.target.value)} 
               placeholder="Email" 
+              autoComplete="off"
+              name="rand_login_email_99"
               required 
             />
           </div>
@@ -38,6 +42,8 @@ export default function Login() {
               value={password} 
               onChange={(e) => setPassword(e.target.value)} 
               placeholder="Password" 
+              autoComplete="new-password"
+              name="rand_login_pass_99"
               required 
             />
           </div>
@@ -53,14 +59,8 @@ export default function Login() {
         </form>
 
         <p className="signup-text">
-          Don't have an account? <a href="#signup">Sign up</a>
+          Don't have an account? <Link to="/signup">Sign up</Link>
         </p>
-
-        <div className="divider">Or login with</div>
-
-        <div className="social-login">
-          <button type="button" className="google-btn">Google</button>
-        </div>
       </div>
     </div>
   );

@@ -119,3 +119,12 @@
 .google-btn:hover {
   background-color: #f3f4f6;
 }
+/* تحديد لون النص داخل حقول الإدخال ليظهر بوضوح (مثلاً لون أسود أو رمادي داكن) */
+.login-container input {
+  color: #1f2937 !important; /* لون النص المكتوب */
+}
+
+/* تحديد لون النص في حالة الـ placeholder أيضاً ليظهر بشكل جميل */
+.login-container input::placeholder {
+  color: #9ca3af !important;
+}
